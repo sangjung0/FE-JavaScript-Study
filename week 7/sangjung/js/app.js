@@ -25,34 +25,37 @@ const init = () => { //최초 실행 함수
                 Todo.#mode = pMode;
             }
         }
+        static get todoItems(){
+            return this.#todoItems;
+        }
         static #mode = 0;
 
-        static todoItems = []; //Todo의 정보들을 리스트형태로 저장
+        static #todoItems = []; //Todo의 정보들을 리스트형태로 저장
 
         constructor(content, state = false){
             this.content = content;
             this.state = state;
-            Todo.todoItems = [this, ...Todo.todoItems];
+            Todo.#todoItems = [this, ...Todo.#todoItems];
         }
 
         getOrder(){
-            return Todo.todoItems.indexOf(this);
+            return Todo.#todoItems.indexOf(this);
         }
     
         static has(value){
-            return Todo.todoItems.find((v) => v.content === value)
+            return Todo.#todoItems.find((v) => v.content === value)
         }
     
         static get(idx){
-            return Todo.todoItems[idx];
+            return Todo.#todoItems[idx];
         }
     
         static remove(idx){
-            Todo.todoItems.splice(idx, 1);
+            Todo.#todoItems.splice(idx, 1);
         }
     
         static clear(){
-            Todo.todoItems = [];
+            Todo.#todoItems = [];
         }
     
     }
